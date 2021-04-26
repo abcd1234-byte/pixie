@@ -417,12 +417,12 @@ inline	void	clampv(const SCALAR_TYPE *mi,SCALAR_TYPE *l,const SCALAR_TYPE *ma) {
 
 
 
-// True if point v is inside the box (bmin,bmax)
-inline	int		inBox(const SCALAR_TYPE *bmin,const SCALAR_TYPE *bmax,const SCALAR_TYPE *v) {
+// True if point v is inside the box (bf,bfmax)
+inline	int		inBox(const SCALAR_TYPE *bf,const SCALAR_TYPE *bfmax,const SCALAR_TYPE *v) {
 	int	i;
 
 	for (i=0;i<3;i++) {
-		if ((v[i] < bmin[i]) || (v[i] > bmax[i])) return FALSE;
+		if ((v[i] < bf[i]) || (v[i] > bfmax[i])) return FALSE;
 	}
 
 	return TRUE;
@@ -430,42 +430,42 @@ inline	int		inBox(const SCALAR_TYPE *bmin,const SCALAR_TYPE *bmax,const SCALAR_T
 
 
 
-// Expand the box (bmin,bmax) so that point v is inside it
-inline	void	addBox(SCALAR_TYPE *bmin,SCALAR_TYPE *bmax,const SCALAR_TYPE *v) {
+// Expand the box (bf,bfmax) so that point v is inside it
+inline	void	addBox(SCALAR_TYPE *bf,SCALAR_TYPE *bfmax,const SCALAR_TYPE *v) {
 	int	i;
 
 	for (i=0;i<3;i++) {
-		if (v[i] < bmin[i])	bmin[i]	=	v[i];
-		if (v[i] > bmax[i]) bmax[i] =	v[i];
+		if (v[i] < bf[i])	bf[i]	=	v[i];
+		if (v[i] > bfmax[i]) bfmax[i] =	v[i];
 	}
 }
 
 // True if two given boxes intersect
-inline	int		intersectBox(const SCALAR_TYPE *bmin1,const SCALAR_TYPE *bmax1,const SCALAR_TYPE *bmin2,const SCALAR_TYPE *bmax2) {
+inline	int		intersectBox(const SCALAR_TYPE *bf1,const SCALAR_TYPE *bfmax1,const SCALAR_TYPE *bf2,const SCALAR_TYPE *bfmax2) {
 	int	i;
 
 	for (i=0;i<3;i++) {
-		if ((bmin1[i] > bmax2[i]) || (bmax1[i] < bmin2[i]))	return	FALSE;
+		if ((bf1[i] > bfmax2[i]) || (bfmax1[i] < bf2[i]))	return	FALSE;
 	}
 
 	return	TRUE;
 }
 
 // True if a ray intersects a box
-inline	int		intersectBox(const SCALAR_TYPE *bmin,const SCALAR_TYPE *bmax,const SCALAR_TYPE *F,const SCALAR_TYPE *D,const double *invD,SCALAR_TYPE &tmin,SCALAR_TYPE &tmax) {
+inline	int		intersectBox(const SCALAR_TYPE *bf,const SCALAR_TYPE *bfmax,const SCALAR_TYPE *F,const SCALAR_TYPE *D,const double *invD,SCALAR_TYPE &tf,SCALAR_TYPE &tfmax) {
 	SCALAR_TYPE		tnear,tfar;
 	SCALAR_TYPE		t1,t2;
 	unsigned int	i;
 
-	tnear	=	tmin;
-	tfar	=	tmax;
+	tnear	=	tf;
+	tfar	=	tfmax;
 
 	for (i=0;i<3;i++) {
 		if (D[i] == 0) {
-			if ((F[i] > bmax[i]) || (F[i] < bmin[i])) return FALSE;
+			if ((F[i] > bfmax[i]) || (F[i] < bf[i])) return FALSE;
 		} else {
-			t1		=	(SCALAR_TYPE) ((bmin[i] - F[i]) * invD[i]);
-			t2		=	(SCALAR_TYPE) ((bmax[i] - F[i]) * invD[i]);
+			t1		=	(SCALAR_TYPE) ((bf[i] - F[i]) * invD[i]);
+			t2		=	(SCALAR_TYPE) ((bfmax[i] - F[i]) * invD[i]);
 
 			if (t1 < t2) {
 				if (t1 > tnear)	tnear = t1;
@@ -479,8 +479,8 @@ inline	int		intersectBox(const SCALAR_TYPE *bmin,const SCALAR_TYPE *bmax,const S
 		}
 	}
 
-	tmin	=	tnear;
-	tmax	=	tfar;
+	tf	=	tnear;
+	tfmax	=	tfar;
 
 	return TRUE;
 }
@@ -488,18 +488,18 @@ inline	int		intersectBox(const SCALAR_TYPE *bmin,const SCALAR_TYPE *bmax,const S
 
 
 
-// If a ray intersects a box, returned t is < tmax (the same as above but takes inverse of the direction)
-inline	SCALAR_TYPE		nearestBox(const SCALAR_TYPE *bmin,const SCALAR_TYPE *bmax,const SCALAR_TYPE *F,const double *invD,SCALAR_TYPE tmin,SCALAR_TYPE tmax) {
+// If a ray intersects a box, returned t is < tfmax (the same as above but takes inverse of the direction)
+inline	SCALAR_TYPE		nearestBox(const SCALAR_TYPE *bf,const SCALAR_TYPE *bfmax,const SCALAR_TYPE *F,const double *invD,SCALAR_TYPE tf,SCALAR_TYPE tfmax) {
 	SCALAR_TYPE		tnear,tfar;
 	SCALAR_TYPE		t1,t2;
 	unsigned int	i;
 
-	tnear	=	tmin;
-	tfar	=	tmax;
+	tnear	=	tf;
+	tfar	=	tfmax;
 
 	for (i=0;i<3;i++) {
-		t1		=	(SCALAR_TYPE) ((bmin[i] - F[i]) * invD[i]);
-		t2		=	(SCALAR_TYPE) ((bmax[i] - F[i]) * invD[i]);
+		t1		=	(SCALAR_TYPE) ((bf[i] - F[i]) * invD[i]);
+		t2		=	(SCALAR_TYPE) ((bfmax[i] - F[i]) * invD[i]);
 
 		if (t1 < t2) {
 			if (t1 > tnear)	tnear = t1;
@@ -545,13 +545,13 @@ inline	void	fresnel(const SCALAR_TYPE *I,const SCALAR_TYPE *N,SCALAR_TYPE eta,SC
 	const SCALAR_TYPE	e		=	1 / eta;
 	const SCALAR_TYPE	c		=	-dotvv(I,N);
 	const SCALAR_TYPE	t		=	e*e+c*c-1;
-	const SCALAR_TYPE	g		=	SQRT(max(t,0));
+	const SCALAR_TYPE	g		=	SQRT(fmax(t,0));
 	const SCALAR_TYPE	a		=	(g - c) / (g + c);
 	const SCALAR_TYPE	b		=	(c*(g+c) - 1) / (c*(g-c) + 1);
 
 	Kr			=	0.5f*a*a*(1 + b*b);
-	Kr			=	min(Kr,1);
-	Kr			=	max(Kr,0);
+	Kr			=	fmin(Kr,1);
+	Kr			=	fmax(Kr,0);
 	Kt			=	1 - Kr;
 	reflect(R,I,N);
 	refract(T,I,N,eta);
@@ -603,7 +603,7 @@ inline SCALAR_TYPE ptlined(SCALAR_TYPE *A,SCALAR_TYPE *B,SCALAR_TYPE *P) {
 //
 ////////////////////////////////////////////////////////////////////////////
 void	skewsymm(SCALAR_TYPE *,const SCALAR_TYPE *);										// Create a skew symmetric matrix from matrix
-SCALAR_TYPE	determinantm(const SCALAR_TYPE *);												// Take the determinant of a 4x4 matrix
+SCALAR_TYPE	deterfantm(const SCALAR_TYPE *);												// Take the deterfant of a 4x4 matrix
 void	identitym(SCALAR_TYPE *);															// Construct identity matrix
 void	translatem(SCALAR_TYPE *,const SCALAR_TYPE,const SCALAR_TYPE,const SCALAR_TYPE);	// Construct translate matrix
 void	scalem(SCALAR_TYPE *,const SCALAR_TYPE,const SCALAR_TYPE,const SCALAR_TYPE);		// Construct scale matrix

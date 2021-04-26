@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -439,7 +439,7 @@ DEFFUNC(Fresnel			,"fresnel"		,"o=vvfFF",FUN5OUTEXPR_PRE,FRESNELEXP,FUN5EXPR_UPD
 
 DEFFUNC(Fresnel2		,"fresnel"		,"o=vvfFFVV",FRESNEL7EXPR_PRE,FRESNEL7EXPR,FRESNEL7EXPR_UPDATE,NULL_EXPR,0)
 
-#define	DETERMINANTEXP		*res	=	determinantm(op);
+#define	DETERMINANTEXP		*res	=	deterfantm(op);
 
 DEFFUNC(Determinant		,"determinant"			,"f=m"	,FUN2EXPR_PRE,DETERMINANTEXP,FUN2EXPR_UPDATE(1,16),NULL_EXPR,0)
 

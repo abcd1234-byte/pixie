@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -205,8 +205,8 @@ int			CPointHierarchy::average(int numItems,int *indices) {
 		float					area;
 
 		subvv(D,node.P,item->P);
-		if (areaIndex == -1)		area	=	max(((float) C_PI*item->dP*item->dP*dotvv(node.N,item->N)),0);
-		else						area	=	max((src[areaIndex]*dotvv(node.N,item->N)),0);
+		if (areaIndex == -1)		area	=	fmax(((float) C_PI*item->dP*item->dP*dotvv(node.N,item->N)),0);
+		else						area	=	fmax((src[areaIndex]*dotvv(node.N,item->N)),0);
 		
 		node.dP		+=	area;
 
@@ -216,7 +216,7 @@ int			CPointHierarchy::average(int numItems,int *indices) {
 			addvv(node.radiosity,tmp);
 		}
 
-		node.dN		=	min(node.dN,dotvv(node.N,item->N));
+		node.dN		=	fmin(node.dN,dotvv(node.N,item->N));
 	}
 	indices		-=	numItems;
 
@@ -312,11 +312,11 @@ int			CPointHierarchy::cluster(int numItems,int *indices) {
 				
 				// Compute the distance to the first cluster
 				subvv(D,cItem->P,C0);
-				const float d0	=	dotvv(D,D) / max(dotvv(N0,cItem->N),C_EPSILON);
+				const float d0	=	dotvv(D,D) / fmax(dotvv(N0,cItem->N),C_EPSILON);
 				
 				// Compute the distance to the second cluster
 				subvv(D,cItem->P,C1);
-				const float d1	=	dotvv(D,D) / max(dotvv(N1,cItem->N),C_EPSILON);
+				const float d1	=	dotvv(D,D) / fmax(dotvv(N1,cItem->N),C_EPSILON);
 				
 				// Change the membership if necessary
 				if (d0 < d1) {

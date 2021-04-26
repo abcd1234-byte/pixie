@@ -1,0 +1,5 @@
+opcodes.o: opcodes.cpp /usr/include/stdc-predef.h opcodes.h
+
+/usr/include/stdc-predef.h:
+
+opcodes.h:

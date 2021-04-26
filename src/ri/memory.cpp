@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -33,7 +33,7 @@
 #include "memory.h"
 #include "stats.h"
 #include "ri_config.h"
-
+#include <math.h>
 // Some global variables
 static	int					allocatedZoneMemory		=	0;
 static	int					freedZoneMemory			=	0;
@@ -87,7 +87,7 @@ CMemPage		*memoryNewPage(int size) {
 	*/
 	lastPagingTime			=	time;
 
-	size					=	max(size,memoryPageSize);
+	size					=	fmax(size,memoryPageSize);
 	size					=	(size + 7) & (~7);
 
 	CMemPage	*newPage	=	new CMemPage;

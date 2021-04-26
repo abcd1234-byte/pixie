@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -217,7 +217,7 @@ void					CSphereLight::setParameters(int n,const char **params,const void **vals
 		} else if (strcmp(params[i],"radius") == 0) {
 			const float	*val	=	(const float *) vals[i];
 
-			radius	=	val[0]*powf(determinantm(xform->from),1.0f / 3.0f);
+			radius	=	val[0]*powf(deterfantm(xform->from),1.0f / 3.0f);
 		} else if (strcmp(params[i],"lightcolor") == 0) {
 			const float	*val	=	(const float *) vals[i];
 

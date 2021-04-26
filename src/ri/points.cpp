@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -53,7 +53,7 @@ CPoints::CPoints(CAttributes *a,CXform *x,CPl *pl,int np) : CSurface(a,x) {
 	this->points				=	NULL;
 
 	// Find the maximum size we'll have
-	const float	expansion		=	(float) pow((double) fabs(determinantm(xform->from)),1.0 / 3.0);
+	const float	expansion		=	(float) pow((double) fabs(deterfantm(xform->from)),1.0 / 3.0);
 	float		maxSize			=	0;
 
 	// Compute the maximum point size (for bounding volume computation)
@@ -417,7 +417,7 @@ void	CPoints::prep() {
 	pl->transform(xform);
 
 	// Transform the size variable
-	const float	expansion		=	(float) pow((double) fabs(determinantm(xform->from)),1.0 / 3.0);
+	const float	expansion		=	(float) pow((double) fabs(deterfantm(xform->from)),1.0 / 3.0);
 	for (i=0;i<pl->numParameters;i++) {
 		const CVariable	*cVar	=	pl->parameters[i].variable;
 

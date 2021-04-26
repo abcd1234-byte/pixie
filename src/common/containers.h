@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -39,7 +39,7 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include <math.h>
 #include "global.h"
 #include "align.h"
 
@@ -448,9 +448,9 @@ template <class ItemType,class PriorityType> class CPqueue  {
 public:
 					CPqueue(int ss=100)	{
 						stepSize	=	ss;
-						maxItems	=	stepSize;
+						fmaxItems	=	stepSize;
 						numItems	=	1;
-						allItems	=	new CPqueueItem[maxItems];
+						allItems	=	new CPqueueItem[fmaxItems];
 					}
 
 		virtual		~CPqueue()	{
@@ -461,10 +461,10 @@ public:
 						int i,j;
 
 						// Expand the buffer
-						if (numItems >= maxItems) {
+						if (numItems >= fmaxItems) {
 							CPqueueItem	*newItems;
-							maxItems	+=	stepSize;
-							newItems	=	new CPqueueItem[maxItems];
+							fmaxItems	+=	stepSize;
+							newItems	=	new CPqueueItem[fmaxItems];
 							memcpy(newItems,allItems,numItems*sizeof(CPqueueItem));
 							delete [] allItems;
 							allItems	=	newItems;
@@ -486,7 +486,7 @@ public:
 					}
 
 		
-		int			getMax(ItemType *item,PriorityType &priority) {
+		int			getfmax(ItemType *item,PriorityType &priority) {
 						if (numItems <= 1) return FALSE;
 
 						item[0]		=	allItems[1].item;
@@ -495,7 +495,7 @@ public:
 					}
 
 		
-		int			removeMax(ItemType *item,PriorityType &priority) {
+		int			removefmax(ItemType *item,PriorityType &priority) {
 						int			i = 1, j;
 						CPqueueItem	*lItem;
 
@@ -539,7 +539,7 @@ public:
 
 private:
 	CPqueueItem		*allItems;
-	int				numItems,maxItems,stepSize;
+	int				numItems,fmaxItems,stepSize;
 };
 
 
@@ -689,7 +689,7 @@ public:
 							while(stack->availableSize < size) {
 
 								if (stack->next == NULL) {
-									CMemPage	*cPage				=	memoryNewPage(max(pageSize,size));
+									CMemPage	*cPage				=	memoryNewPage(fmax(pageSize,size));
 									cPage->prev						=	stack;
 									stack->next						=	cPage;
 								}

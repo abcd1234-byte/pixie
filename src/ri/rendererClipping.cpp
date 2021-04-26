@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -41,10 +41,10 @@
 // Comments				:
 void		CRenderer::beginClipping() {
 
-	const float	minX		=	min(pixelLeft,pixelRight);	// The extend of the rendering window on the image
-	const float	maxX		=	max(pixelLeft,pixelRight);	// plane
-	const float	minY		=	min(pixelTop,pixelBottom);
-	const float	maxY		=	max(pixelTop,pixelBottom);
+	const float	minX		=	fmin(pixelLeft,pixelRight);	// The extend of the rendering window on the image
+	const float	maxX		=	fmax(pixelLeft,pixelRight);	// plane
+	const float	minY		=	fmin(pixelTop,pixelBottom);
+	const float	maxY		=	fmax(pixelTop,pixelBottom);
 
 	// Compute the equations of the clipping planes
 	// The visible points are:

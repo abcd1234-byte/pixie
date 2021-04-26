@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -78,8 +78,8 @@ static	inline	float	intersect(const float *P,float dP,float x,float y,float z,fl
 	tmax1	=	P[0] + dP;
 	tmin2	=	x - d;
 	tmax2	=	x + d;
-	tmin	=	max(tmin1,tmin2);
-	tmax	=	min(tmax1,tmax2);
+	tmin	=	fmax(tmin1,tmin2);
+	tmax	=	fmin(tmax1,tmax2);
 	if (tmax <= tmin)	return 0;
 	w		=	tmax - tmin;
 
@@ -88,8 +88,8 @@ static	inline	float	intersect(const float *P,float dP,float x,float y,float z,fl
 	tmax1	=	P[1] + dP;
 	tmin2	=	y - d;
 	tmax2	=	y + d;
-	tmin	=	max(tmin1,tmin2);
-	tmax	=	min(tmax1,tmax2);
+	tmin	=	fmax(tmin1,tmin2);
+	tmax	=	fmin(tmax1,tmax2);
 	if (tmax <= tmin)	return 0;
 	w		*=	tmax - tmin;
 
@@ -98,8 +98,8 @@ static	inline	float	intersect(const float *P,float dP,float x,float y,float z,fl
 	tmax1	=	P[2] + dP;
 	tmin2	=	z - d;
 	tmax2	=	z + d;
-	tmin	=	max(tmin1,tmin2);
-	tmax	=	min(tmax1,tmax2);
+	tmin	=	fmax(tmin1,tmin2);
+	tmax	=	fmin(tmax1,tmax2);
 	if (tmax <= tmin)	return 0;
 	w		*=	tmax - tmin;
 
@@ -199,8 +199,8 @@ CBrickMap::CBrickMap(const char *name,const float *bmi,const float *bma,const fl
 	movvv(bmax,bma);
 	subvv(bmax,bmin);
 	side			=	bmax[0];
-	side			=	max(side,bmax[1]);
-	side			=	max(side,bmax[2]);
+	side			=	fmax(side,bmax[1]);
+	side			=	fmax(side,bmax[2]);
 	invSide			=	1 / side;
 	addvf(bmax,bmin,side);
 	addvv(center,bmin,bmax);
@@ -365,7 +365,7 @@ void	CBrickMap::store(const float *data,const float *cP,const float *cN,float dP
 	CBrickNode	*cNode;
 	vector		P,N;
 
-	depth = min(max(depth,0),maxDepth);
+	depth = fmin(fmax(depth,0),maxDepth);
 
 	// First, transform the point to world coordinate system
 	mulmp(P,to,cP);
@@ -1033,7 +1033,7 @@ void				CBrickMap::draw() {
 	float		*cC				=	C;
 	float		*cN				=	N;
 	float		*cR				=	R;
-	int			level			=	min(max(0,detailLevel),maxDepth);
+	int			level			=	fmin(fmax(0,detailLevel),maxDepth);
 	int			nb				=	1 << level;
 	const float sqrt2			=	sqrtf(0.5f);
 	float		cubePoints[]	=	{	0, 0, 0,

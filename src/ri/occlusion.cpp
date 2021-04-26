@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -31,7 +31,7 @@
 #include "occlusion.h"
 #include "renderer.h"
 #include "memory.h"
-
+#include <math.h>
 ///////////////////////////////////////////////////////////////////////
 // Class				:	COcclusionCuller
 // Method				:	~COcclusionCuller
@@ -83,8 +83,8 @@ void	COcclusionCuller::resetHierarchy(COcclusionNode *cNode) {
 		resetHierarchy(cNode->children[2]);
 		resetHierarchy(cNode->children[3]);
 
-		cNode->zmax	=	max(	max(cNode->children[0]->zmax,cNode->children[1]->zmax),
-								max(cNode->children[2]->zmax,cNode->children[3]->zmax));
+		cNode->zmax	=	fmax(	fmax(cNode->children[0]->zmax,cNode->children[1]->zmax),
+								fmax(cNode->children[2]->zmax,cNode->children[3]->zmax));
 	}
 }
 
@@ -184,8 +184,8 @@ int COcclusionCuller::probeRect(int *xbound,int *ybound, int bw, int bh, int bl,
 		ymax	=	ymax>>(depth-queryDepth);
 
 		// Clamp the bound in the current bucket
-		xmin					=	max(xmin,0);
-		ymin					=	max(ymin,0);
+		xmin					=	fmax(xmin,0);
+		ymin					=	fmax(ymin,0);
 		
 		// Notes:
 		//		This is correct but inefficient due to querying
@@ -198,8 +198,8 @@ int COcclusionCuller::probeRect(int *xbound,int *ybound, int bw, int bh, int bl,
 		// 			(bw*2+(1<<d))>>d , d = (depth-queryDepth)
 		// 		is equivalent but probably slower
 		
-		xmax					=	min(xmax,w-1);
-		ymax					=	min(ymax,h-1);
+		xmax					=	fmin(xmax,w-1);
+		ymax					=	fmin(ymax,h-1);
 
 		// Something odd occurred, abort
 		if (xmin > xmax) return FALSE;

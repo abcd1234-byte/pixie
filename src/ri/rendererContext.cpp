@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -1864,7 +1864,7 @@ void	CRendererContext::RiIdentity(void) {
 		}
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -1907,7 +1907,7 @@ void	CRendererContext::RiIdentity(void) {
 		}
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -1986,7 +1986,7 @@ void	CRendererContext::RiTransform(float transform[][4]) {
 		}
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2031,7 +2031,7 @@ void	CRendererContext::RiTransform(float transform[][4]) {
 		}
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2096,7 +2096,7 @@ void	CRendererContext::RiConcatTransform(float transform[][4]) {
 		}
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2132,7 +2132,7 @@ void	CRendererContext::RiConcatTransform(float transform[][4]) {
 		}
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2356,7 +2356,7 @@ void	CRendererContext::RiScale(float dx,float dy,float dz) {
 		if (xform->next != NULL)	xform->next->scale(p0[0],p0[1],p0[2]);
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2384,7 +2384,7 @@ void	CRendererContext::RiScale(float dx,float dy,float dz) {
 		xform->next->scale(p1[0],p1[1],p1[2]);
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2423,7 +2423,7 @@ void	CRendererContext::RiSkew(float angle,float dx1,float dy1,float dz1,float dx
 		if (xform->next != NULL)	xform->next->skew(p0[0],p0[1],p0[2],p0[3],p0[4],p0[5],p0[6]);
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {
@@ -2442,7 +2442,7 @@ void	CRendererContext::RiSkew(float angle,float dx1,float dy1,float dz1,float dx
 		xform->next->skew(p1[0],p1[1],p1[2],p1[3],p1[4],p1[5],p1[6]);
 
 		// Orientation check
-		if (determinantm(xform->from) < 0)	nflip	=	1;
+		if (deterfantm(xform->from) < 0)	nflip	=	1;
 		else								nflip	=	0;
 
 		if (nflip != xform->flip) {

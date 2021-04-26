@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -33,7 +33,7 @@
 
 #include "common/global.h"
 #include "common/os.h"
-
+#include <math.h>
 ///////////////////////////////////////////////////////////////////////
 // Class				:	COcclusionCuller
 // Description			:	The occlusion culler class
@@ -77,8 +77,8 @@ protected:
 								if (cNode->zmax == pNode->zmax) {
 									cNode->zmax	=	z;
 
-									z			=	max(	max(pNode->children[0]->zmax,pNode->children[1]->zmax),
-															max(pNode->children[2]->zmax,pNode->children[3]->zmax));
+									z			=	fmax(	fmax(pNode->children[0]->zmax,pNode->children[1]->zmax),
+															fmax(pNode->children[2]->zmax,pNode->children[3]->zmax));
 
 									if (z < pNode->zmax) {
 										cNode		=	pNode;

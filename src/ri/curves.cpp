@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -843,7 +843,7 @@ CCurveMesh::CCurveMesh(CAttributes *a,CXform *x,CPl *c,int d,int nv,int nc,int *
 
 	// Expand the bounding box by the width of the curves
 	if (sizeVariable == NULL)	maxSize	=	1;
-	maxSize		*=	0.5f*powf(fabsf(determinantm(xform->from)), 1.0f / 3.0f);
+	maxSize		*=	0.5f*powf(fabsf(deterfantm(xform->from)), 1.0f / 3.0f);
 	addvf(bmax,maxSize);
 	subvf(bmin,maxSize);
 
@@ -927,7 +927,7 @@ void	CCurveMesh::create(CShadingContext *context) {
 
 	// Multiply the curve width by the expansion in the coordinate system
 	{
-		const float expansion	=	powf(fabsf(determinantm(xform->from)), 1.0f / 3.0f);
+		const float expansion	=	powf(fabsf(deterfantm(xform->from)), 1.0f / 3.0f);
 		
 		for (i=0;i<pl->numParameters;i++) {
 			const CVariable	*cVar	=	pl->parameters[i].variable;

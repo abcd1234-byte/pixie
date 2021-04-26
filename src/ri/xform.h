@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -65,7 +65,7 @@ public:
 
 	int			normalFlip()		{
 					if (flip == -1) {
-						if (determinantm(from) < 0)	flip	=	TRUE;
+						if (deterfantm(from) < 0)	flip	=	TRUE;
 						else						flip	=	FALSE;
 					}
 

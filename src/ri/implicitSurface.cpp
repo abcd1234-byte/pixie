@@ -2,7 +2,7 @@
 //
 //                             Pixie
 //
-// Copyright © 1999 - 2003, Okan Arikan
+// Copyright ï¿½ 1999 - 2003, Okan Arikan
 //
 // Contact: okan@cs.utexas.edu
 //
@@ -74,7 +74,7 @@ CImplicit::CImplicit(CAttributes *a,CXform *x,int frame,const char *name,float s
 		error(CODE_BADFILE,"Failed to load implicit \"%s\": %s\n",name,osModuleError());
 	}
 
-	scaleFactor				=	(float) pow((double) fabs(determinantm(xform->from)),1 / 3.0)*sf*(float) 0.5;
+	scaleFactor				=	(float) pow((double) fabs(deterfantm(xform->from)),1 / 3.0)*sf*(float) 0.5;
 
 	atomicIncrement(&stats.numGprims);
 }

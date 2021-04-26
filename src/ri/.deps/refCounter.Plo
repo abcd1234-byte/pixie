@@ -1,0 +1,12 @@
+refCounter.lo: refCounter.cpp /usr/include/stdc-predef.h refCounter.h \
+ ../common/global.h ../common/../../config.h atomic.h
+
+/usr/include/stdc-predef.h:
+
+refCounter.h:
+
+../common/global.h:
+
+../common/../../config.h:
+
+atomic.h:
